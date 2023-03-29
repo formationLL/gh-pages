@@ -39,7 +39,7 @@ jobs:
           node-version: 18
       - name: Install
         run: npm install
-      - name: Buld
+      - name: Build
         run: npm run build
   deploy:
     needs: build
@@ -53,12 +53,12 @@ jobs:
           node-version: 18
       - name: Install
         run: npm install
-      - name: Buld
+      - name: Build
         run: npm run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           folder: build
-          branch: main
+          branch: gh-pages
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
