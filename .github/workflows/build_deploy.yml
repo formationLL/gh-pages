@@ -1,4 +1,6 @@
 name: Deploy React App
+permissions:
+  contents: write
 on:
   pull_request:
     types:
@@ -58,7 +60,5 @@ jobs:
         with:
           folder: build
           branch: main
-        permissions:
-          contents: write
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
