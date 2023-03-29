@@ -1,4 +1,6 @@
 name: Deploy React App
+permissions:
+  contents: write
 on:
   pull_request:
     types:
@@ -37,7 +39,7 @@ jobs:
           node-version: 18
       - name: Install
         run: npm install
-      - name: Buld
+      - name: Build
         run: npm run build
   deploy:
     needs: build
@@ -51,12 +53,12 @@ jobs:
           node-version: 18
       - name: Install
         run: npm install
-      - name: Buld
+      - name: Build
         run: npm run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
-          branch: main
           folder: build
+          branch: gh-pages
         env:
-          ACCESS_TOKEN: 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
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
