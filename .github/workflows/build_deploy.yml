@@ -59,4 +59,4 @@ jobs:
           branch: gh-pages
           folder: build
         env:
-          ACCESS_TOKEN: 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
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
