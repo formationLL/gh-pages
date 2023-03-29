@@ -1,0 +1,52 @@
+name: Deploy React App
+on:
+  pull_request:
+    types:
+      - opened
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - hotfix-*
+      - feature/**
+    path-ignore:
+      - .github/workflows/*
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code
+        uses: actions/checkout@v3
+      - name: Install Node v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install
+        run: npm install
+      - name: Test
+        run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code
+        uses: actions/checkout@v3
+      - name: Install Node v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install
+        run: npm install
+      - name: Buld
+        run: npm run build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: dist
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
